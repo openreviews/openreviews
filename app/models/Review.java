@@ -43,4 +43,12 @@ public class Review {
     	this.author = author;
     }
     
+    public Review(Date date, User user, int grade, ReviewStatus status, Author author) {
+    	this.date = date;
+    	this.userId = user.getUserId();
+    	this.grade = grade;
+    	this.status = status;
+    	this.author = author;
+    }
+    
 }
