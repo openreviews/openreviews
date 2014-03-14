@@ -15,7 +15,7 @@ public class Review {
     private ObjectId _id;
    
     @Required
-    public Date date;
+    public Date createdAt;
     
     @Required
     public ObjectId userId;
@@ -35,20 +35,16 @@ public class Review {
     
     public Review() {}
 
-    public Review(Date date, ObjectId idClient, int grade, ReviewStatus status, Author author) {
-    	this.date = date;
+    public Review(Date createdAt, ObjectId idClient, int grade, ReviewStatus status, Author author) {
+    	this.createdAt = createdAt;
     	this.userId = idClient;
     	this.grade = grade;
     	this.status = status;
     	this.author = author;
     }
     
-    public Review(Date date, User user, int grade, ReviewStatus status, Author author) {
-    	this.date = date;
-    	this.userId = user.getUserId();
-    	this.grade = grade;
-    	this.status = status;
-    	this.author = author;
+    public Review(Date createdAt, User user, int grade, ReviewStatus status, Author author) {
+        this(createdAt, user.getOid(), grade, status, author);
     }
     
 }

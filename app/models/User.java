@@ -28,8 +28,8 @@ public class User {
         this.password = password;
         this.itemName = itemName;
     }
-    
-    public ObjectId getUserId() {
-    	return _id;
+
+    public ObjectId getOid() {
+        return _id;
     }
 }

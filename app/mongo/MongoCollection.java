@@ -1,6 +1,7 @@
 package mongo;
 
 import models.User;
+import org.bson.types.ObjectId;
 import org.jongo.Find;
 import org.jongo.Jongo;
 
@@ -21,7 +22,19 @@ public abstract class MongoCollection<T> {
         return getCollection(j).findOne(query, parameters).as(getModelClass());
     }
 
+    public T findOne(Jongo j, ObjectId oid){
+        return getCollection(j).findOne(oid).as(getModelClass());
+    }
+
     public Find find(Jongo j){
         return getCollection(j).find();
+    }
+
+    public Find find(Jongo j, String query) {
+        return getCollection(j).find(query);
+    }
+
+    public Find find(Jongo j, String query, Object... parameters) {
+        return getCollection(j).find(query, parameters);
     }
 }
