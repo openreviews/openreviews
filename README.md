@@ -1,4 +1,5 @@
-# Open Reviews
+
+# Open Reviews [![Build Status](https://travis-ci.org/openreviews/openreviews.png?branch=master)](https://travis-ci.org/openreviews/openreviews)
 
 Reviews made simple
 
