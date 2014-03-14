@@ -2,9 +2,25 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /                           controllers.MainController.index()
-POST    /signup                     controllers.SignUpController.submit()
+GET         /                                                  controllers.MainController.index()
+POST        /signup                                            controllers.SignUpController.submit()
+POST        /login                                             controllers.LoginController.login()
+
+
+
+GET         /private/:userOid/                                 controllers.UserController.dashboard(userOid: String)
+# dashboard avec 2 boutons : “Edit profile” & “display reviews”
+GET         /private/:userOid/reviews/                         controllers.UserReviewsController.list(userOid: String)
+# ->        gestion        des        reviews
+POST        /private/:userOid/reviews/:reviewOid/status        controllers.UserReviewsController.updateStatus(userOid: String, reviewOid: String)
+
+GET         /private/:userOid/edit                             controllers.UserController.edit(userOid: String)
+POST        /private/:userOid/edit                             controllers.UserController.update(userOid: String)
+GET         /widget/:userOid                                   controllers.WidgetsController.show(userOid: String)
+
+GET         /reviews/:userOid/new                              controllers.ReviewsController.new_(userOid: String)
+POST        /reviews/:userOid/new                              controllers.ReviewsController.create(userOid: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
-GET     /webjars/*file              controllers.WebJarAssets.at(file)
+GET         /assets/*file                                      controllers.Assets.at(path="/public", file)
+GET         /webjars/*file                                     controllers.WebJarAssets.at(file)
