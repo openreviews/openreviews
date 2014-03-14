@@ -24,9 +24,7 @@ public class SignUpController extends Controller {
             return badRequest(MainController.renderIndex(filledForm));
         } else {
             User user = filledForm.get();
-            Jongo j = Mongo.jongo();
-            MongoCollection users = j.getCollection(User.MONGO_COLLECTION);
-            WriteResult r = users.save(user);
+            WriteResult r = Mongo.save(user);
             return redirect(controllers.routes.MainController.index());
         }
 

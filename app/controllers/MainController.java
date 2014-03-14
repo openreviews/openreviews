@@ -16,11 +16,7 @@ public class MainController extends Controller {
     }
 
     public static Html renderIndex(Form<User> form){
-        Jongo j = Mongo.jongo();
-        MongoCollection users = j.getCollection(User.MONGO_COLLECTION);
-        Iterable<User> allUsers = users.find().sort("{username: 1}").as(User.class);
-
-        return views.html.index.render(form, allUsers);
+        return views.html.index.render(form, Mongo.findAllUsers());
     }
 
 }

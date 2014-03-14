@@ -7,13 +7,7 @@ import play.data.validation.Constraints.*;
 
 public class User {
 
-    public final static String MONGO_COLLECTION = "users";
-
     private ObjectId _id;
-   
-    @Required
-    @MinLength(value = 4)
-    public String username;
     
     @Required
     @Email
@@ -23,12 +17,15 @@ public class User {
     @MinLength(value = 6)
     public String password;
 
+    @Required
+    @MinLength(value = 2)
+    public String itemName;
+
     public User() {}
     
-    public User(String username, String email, String password) {
-        this.username = username;
+    public User(String email, String password, String itemName) {
         this.email = email;
         this.password = password;
+        this.itemName = itemName;
     }
-    
 }

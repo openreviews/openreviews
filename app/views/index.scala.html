@@ -8,14 +8,14 @@
     <div class="row">
         <div class="col-xs-8">
         @for(u <- users.iterator()) {
-            <li>@u.username</li>
+            <li>@u.email</li>
         }
         </div>
 
         <div class="col-xs-4">
         @helper.form(action = routes.SignUpController.submit()) {
 
-            @helper.inputText(signupForm("username"))
+            @helper.inputText(signupForm("itemName"))
 
             @helper.inputText(signupForm("email"))
 

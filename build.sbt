@@ -7,6 +7,8 @@ organization := "com.github.openreviews"
 
 version := "0.1-SNAPSHOT"
 
+licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
+
 libraryDependencies ++= Seq(
   // Select Play modules
   //jdbc,      // The JDBC connection pool and the play.api.db API
@@ -25,11 +27,7 @@ libraryDependencies ++= Seq(
 
 playJavaSettings
 
-val dependenciesUrl = TaskKey[Seq[String]]("dependenciesUrl", "List dependencies urls")
+seq(bintrayPublishSettings:_*)
 
-dependenciesUrl <<= (update in Runtime) map {(u) =>
- u.configuration("runtime") match {
-   case Some(conf) => conf.modules.flatMap(_.artifacts.map{case (art,_) => art.url.map(_.toString).getOrElse("No URL")})
-   case None => List("No such configuration")
- }
-}
+bintray.Keys.repository in bintray.Keys.bintray := "openreviews"
+
