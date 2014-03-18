@@ -1,19 +1,21 @@
 package mongo;
 
-import com.mongodb.DB;
-import com.mongodb.WriteResult;
+import java.net.UnknownHostException;
+
 import models.Review;
 import models.User;
 import mongo.collection.ReviewCollection;
 import mongo.collection.UserCollection;
+
 import org.bson.types.ObjectId;
 import org.jongo.Jongo;
-import org.jongo.MongoCollection;
-import play.Play;
-import com.mongodb.MongoClientURI;
-import com.mongodb.MongoClient;
 
-import java.net.UnknownHostException;
+import play.Play;
+
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.WriteResult;
 
 public class Mongo{
 
@@ -46,7 +48,15 @@ public class Mongo{
     }
 
     public static Iterable<Review> findAllReviews(User user, int limit){
-        return REVIEW_COLLECTION.findAllReviews(jongo(), user, limit);
+        return findAllReviews(user, limit, false);
+    }
+
+    public static Iterable<Review> findAllReviews(User user, int limit, boolean onlyPublishedReviews){
+        return REVIEW_COLLECTION.findAllReviews(jongo(), user, limit, onlyPublishedReviews);
+    }
+
+    public static long countReviews(User user, boolean onlyPublishedReviews){
+        return REVIEW_COLLECTION.count(jongo(), user, onlyPublishedReviews);
     }
 
     public static WriteResult save(User u){
@@ -55,6 +65,10 @@ public class Mongo{
 
     public static WriteResult save(Review r){
         return REVIEW_COLLECTION.getCollection(jongo()).save(r);
+    }
+
+    public static WriteResult removeAll(User u){
+        return REVIEW_COLLECTION.getCollection(jongo()).remove("{userId:#}", "");
     }
 
 }

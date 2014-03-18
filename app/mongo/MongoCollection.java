@@ -37,4 +37,8 @@ public abstract class MongoCollection<T> {
     public Find find(Jongo j, String query, Object... parameters) {
         return getCollection(j).find(query, parameters);
     }
+    
+    public long count(Jongo j, String query, Object... parameters) {
+    	return getCollection(j).count(query, parameters);
+    }
 }
