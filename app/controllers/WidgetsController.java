@@ -1,8 +1,5 @@
 package controllers;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 import models.Review;
 import models.User;
 import models.WidgetData;
@@ -36,10 +33,6 @@ public class WidgetsController extends Controller {
 		widgetData.reviews = reviews;
 		widgetData.reviewsCount = mongo.Mongo.countReviews(user, true);
 		
-		DecimalFormat df = new DecimalFormat("#.0");
-		df.setDecimalSeparatorAlwaysShown(false);
-		df.setMaximumFractionDigits(1);
-		df.setRoundingMode(RoundingMode.HALF_UP);
 		Float computedAverageOfReviews = computeAverageOfReviews(reviews);
 		widgetData.grade = roundToOneDecimal(computedAverageOfReviews);
 
