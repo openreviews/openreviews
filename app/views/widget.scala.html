@@ -5,19 +5,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Avis consommateur '@widgetData.itemName'</title>
-	<link rel='shortcut icon' type='image/png' href='@routes.Assets.at("images/favicon.png")'>
 	<link rel='stylesheet' href='@routes.Assets.at("stylesheets/widget.css")'>
 </head>
 
 <body>
 	<div>
-		<span class="">Avis consommateur dsfdfsdfs dfsdfs dfs dfsdfs dfsdfs dfs dfs dfsdfs</span> 
+		<span class="">Avis consommateur</span> 
 		<br /> 
-		<span class="">Note : </span><span class="">@widgetData.grade</span><span>/5</span>
-		<span class="">sur @widgetData.reviewsCount avis </span>
-		<br /> 
-		<a href="@widgetData.notationPageUrl" class="">Donnez votre avis</a>
-		<br />
+		<div>
+@if(widgetData.reviewsCount > 0) {
+			<span class="">@widgetData.grade</span>
+}
+			<div class="stars stars_@widgetData.starsCount"> </div>
+		</div>
+		<span class="">@widgetData.reviewsCount avis </span>
+		<br/>
+		<a href="@widgetData.notationPageUrl" class="">@widgetData.notationPageLabel</a>
+		<br/>
 	</div>
 </body>

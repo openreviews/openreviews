@@ -28,17 +28,27 @@ public class WidgetsController extends Controller {
 		if (user == null) {
 			return notFound("Unknown userOid : " + userOid);
 		}
-
-		Iterable<Review> reviews = mongo.Mongo.findAllReviews(user, 10000, true);
-		widgetData.reviews = reviews;
+		
 		widgetData.reviewsCount = mongo.Mongo.countReviews(user, true);
-		
-		Float computedAverageOfReviews = computeAverageOfReviews(reviews);
-		widgetData.grade = roundToOneDecimal(computedAverageOfReviews);
-
-		
 		widgetData.notationPageUrl = controllers.routes.ReviewsController.new_(user.getOid().toString()).url();
 		widgetData.itemName = user.itemName;
+		widgetData.notationPageLabel = "Donnez votre avis";
+
+		if (widgetData.reviewsCount > 0) {
+			// if the item has at least one review 
+			Iterable<Review> reviews = mongo.Mongo.findAllReviews(user, 10000, true);
+			widgetData.reviews = reviews;
+			
+			Float computedAverageOfReviews = computeAverageOfReviews(reviews);
+			widgetData.grade = roundToOneDecimal(computedAverageOfReviews);
+			widgetData.starsCount = Math.round(computedAverageOfReviews);
+		} else {
+			// if no review on item
+			widgetData.reviews = null;
+			widgetData.grade = null;
+			widgetData.starsCount = 0;
+		}
+		
 		return ok(views.html.widget.render(widgetData));
 	}
 
